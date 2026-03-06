@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenJet | The Art of Purity</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700&family=Noto+Sans+KR:wght@100;300;400;500&display=swap');
+
+        :root {
+            --bg: #ffffff;
+            --primary: #121212;
+            --secondary: #666666;
+            --accent: #1A3026; /* GreenJet Identity */
+            --border: #eeeeee;
+            --padding-side: clamp(40px, 8vw, 120px);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: var(--bg); 
+            color: var(--primary); 
+            font-family: 'Noto Sans KR', sans-serif; 
+            line-height: 1.4;
+            overflow-x: hidden;
+            word-break: keep-all;
+        }
+
+        /* PLATE A Typography Style */
+        .serif { font-family: 'Bodoni Moda', serif; font-weight: 400; }
+        .eng { font-family: 'Bodoni Moda', serif; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.75rem; }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 40px var(--padding-side);
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; background: rgba(255,255,255,0.8); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo { font-size: 1.2rem; letter-spacing: 0.4em; text-decoration: none; color: var(--primary); font-weight: 500; }
+        .nav-links { display: flex; gap: 60px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--primary); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
+
+        /* Hero Section (PLATE A Stage) */
+        .stage {
+            height: 100vh;
+            display: flex; flex-direction: column; justify-content: center;
+            padding: 0 var(--padding-side);
+            position: relative;
+        }
+
+        .stage-title {
+            font-size: clamp(4rem, 15vw, 12rem);
+            line-height: 0.8;
+            margin-bottom: 60px;
+            position: relative; z-index: 2;
+        }
+
+        .stage-title span { display: block; font-style: italic; color: var(--accent); opacity: 0.8; }
+
+        .stage-image {
+            position: absolute; right: var(--padding-side); top: 55%; transform: translateY(-50%);
+            width: 45vw; height: 65vh;
+            background: url('https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=2000&auto=format&fit=crop') center/cover;
+            z-index: 1; filter: grayscale(100%); transition: 1.5s filter ease;
+        }
+
+        .stage-image:hover { filter: grayscale(0%); }
+
+        /* Section Container */
+        section { padding: 180px var(--padding-side); position: relative; }
+
+        /* PLATE A Grid Layout: Offset & Space */
+        .grid-editorial {
+            display: grid; grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
+
+        .editorial-content { grid-column: 1 / 6; }
+        .editorial-image { grid-column: 7 / 13; height: 80vh; overflow: hidden; }
+        .editorial-image img { width: 100%; height: 100%; object-fit: cover; }
+
+        .editorial-reverse .editorial-content { grid-column: 8 / 13; text-align: right; }
+        .editorial-reverse .editorial-image { grid-column: 1 / 7; }
+
+        .section-sub { font-size: 0.8rem; color: var(--secondary); margin-bottom: 40px; }
+        .section-title { font-size: 3.5rem; margin-bottom: 40px; line-height: 1.1; }
+        .section-desc { font-size: 1.1rem; font-weight: 300; color: var(--secondary); max-width: 400px; }
+        .editorial-reverse .section-desc { margin-left: auto; }
+
+        /* Partners Integration (Google Drive) */
+        .partners-stage {
+            background-color: #f7f7f7;
+            text-align: center;
+        }
+
+        .upload-card {
+            background: white; border: 1px solid var(--border);
+            padding: 80px; display: inline-block; width: 100%; max-width: 900px;
+            margin-top: 60px;
+        }
+
+        .btn-upload {
+            background: var(--primary); color: white; border: none;
+            padding: 20px 50px; font-size: 0.8rem; letter-spacing: 0.2em;
+            cursor: pointer; transition: 0.3s;
+        }
+
+        .btn-upload:hover { opacity: 0.8; }
+
+        /* Footer */
+        footer {
+            padding: 100px var(--padding-side);
+            border-top: 1px solid var(--border);
+            display: flex; justify-content: space-between;
+            font-size: 0.75rem; color: var(--secondary);
+            letter-spacing: 0.1em;
+        }
+
+        /* Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(50px); transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 1024px) {
+            .grid-editorial { display: block; }
+            .editorial-image { height: 50vh; margin: 40px 0; }
+            .stage-image { display: none; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo serif">GREENJET</a>
+        <ul class="nav-links">
+            <li><a href="#vision" class="eng">Vision</a></li>
+            <li><a href="#purity" class="eng">Purity</a></li>
+            <li><a href="#partners" class="eng">Partners</a></li>
+            <li><a href="#shop" class="eng">Shop</a></li>
+        </ul>
+    </nav>
+
+    <div class="stage">
+        <h1 class="stage-title serif reveal">
+            THE ART OF<span>PURITY</span>
+        </h1>
+        <div class="stage-image reveal"></div>
+        <p class="eng reveal" style="margin-top: 40px; color: var(--secondary);">Established 2026. Seoul</p>
+    </div>
+
+    <section id="vision" class="grid-editorial reveal">
+        <div class="editorial-content">
+            <p class="eng section-sub">01. Origin</p>
+            <h2 class="serif section-title">가장 순수한<br>기다림의 기록</h2>
+            <p class="section-desc">
+                우리는 속도보다 본질을 이야기합니다. 대지가 에너지를 품을 수 있도록 충분히 기다리고, 그 최상의 순간을 드론이라는 정교한 필터로 당신의 일상에 연결합니다.
+            </p>
+        </div>
+        <div class="editorial-image">
+            <img src="https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?q=80&w=1500&auto=format&fit=crop" alt="Soil">
+        </div>
+    </section>
+
+    <section id="purity" class="grid-editorial editorial-reverse reveal">
+        <div class="editorial-content">
+            <p class="eng section-sub">02. Technology</p>
+            <h2 class="serif section-title">하늘을 담은<br>혁신의 마침표</h2>
+            <p class="section-desc">
+                수확 후 15분, 이 짧은 시간은 신선함이 상실되지 않는 유일한 골든타임입니다. GreenJet의 자율 주행 드론은 지상의 한계를 넘어 하늘길로 자연의 에너지를 직송합니다.
+            </p>
+        </div>
+        <div class="editorial-image">
+            <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=1500&auto=format&fit=crop" alt="Flight">
+        </div>
+    </section>
+
+    <section id="partners" class="partners-stage reveal">
+        <p class="eng section-sub">03. Traceability</p>
+        <h2 class="serif section-title">투명한 여정, 신뢰의 동기화</h2>
+        <div class="upload-card">
+            <p class="section-desc" style="margin: 0 auto 40px;">
+                농가 파트너의 구글 클라우드 데이터를 실시간으로 동기화하여 수확 현장을 소비자에게 투명하게 공개합니다.
+            </p>
+            <button class="btn-upload eng" onclick="syncGoogleDrive()">Sync Google Drive</button>
+            <div id="sync-status" class="eng" style="margin-top: 20px; font-size: 0.65rem; color: var(--accent); display: none;">Data Synchronizing...</div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="eng">© 2026 GreenJet Studio</div>
+        <div class="nav-links">
+            <a href="#" class="eng">Instagram</a>
+            <a href="#" class="eng">Youtube</a>
+            <a href="#" class="eng">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Reveal Animation
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Google Drive Sync Simulation
+        function syncGoogleDrive() {
+            const status = document.getElementById('sync-status');
+            status.style.display = 'block';
+            setTimeout(() => {
+                status.innerText = 'Connected with Google Cloud Platform.';
+                alert('Partner Data Synchronized.');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
