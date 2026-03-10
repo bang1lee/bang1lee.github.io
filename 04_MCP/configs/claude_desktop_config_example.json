@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "example-server": {
+      "command": "python",
+      "args": ["../servers/example_server.py"],
+      "env": {
+        "API_KEY": "your-api-key-here"
+      }
+    }
+  }
+}
